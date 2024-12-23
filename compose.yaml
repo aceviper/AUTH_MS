@@ -1,0 +1,18 @@
+services:
+  mysql:
+    image: mysql:8.0-oracle
+    env_file: ./.env
+    environment:
+      MYSQL_DATABASE: $MYSQL_DATABASE   # from .env file
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
+    ports:
+      - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
+    networks:
+      - db_network
+    restart: unless-stopped
+
+networks:
+  db_network:
+    driver: bridge
